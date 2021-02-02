@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { Login } from "./components/Form/Login";
+import { Register } from "./components/Form/Register";
 
 export default function App() {
   return (

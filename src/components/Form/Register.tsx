@@ -2,9 +2,9 @@ import { Box, Button } from "@chakra-ui/react";
 import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { IUser } from "../@types/IUser";
-import { FormInput } from "../components/Input/FormInput";
-import { auth, firestore } from "../firebase";
+import { IUser } from "../../@types/IUser";
+import { FormInput } from "../Input/FormInput";
+import { auth, firestore } from "../../firebase";
 
 export const Register = () => {
   // state
