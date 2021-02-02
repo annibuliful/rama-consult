@@ -1,56 +1,24 @@
-import { Button } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { IAuth } from "./@types";
-import { firestore } from "./firebase";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 export default function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/">
+          <Home />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
     </Router>
   );
-}
-
-function Home() {
-  return (
-    <h2>
-      Home
-      <Button variant="primary">asdasd</Button>
-    </h2>
-  );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
