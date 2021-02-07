@@ -1,24 +1,21 @@
 import { createStoreon, StoreonModule } from "storeon";
 import { storeonDevtools } from "storeon/devtools";
 import { useStoreon } from "storeon/react";
+import { IUserInfo } from "../@types/IUser";
 
 // State structure
 interface State {
-  counter: number;
+  userInfo: IUserInfo | null;
 }
 
 // Events declaration: map of event names to type of event data
 interface Events {
-  // `inc` event which do not goes with any data
-  inc: undefined;
-  // `set` event which goes with number as data
-  set: number;
+  setUserInfo: IUserInfo;
 }
 
 const counterModule: StoreonModule<State, Events> = (store) => {
-  store.on("@init", () => ({ counter: 0 }));
-  store.on("inc", (state) => ({ counter: state.counter + 1 }));
-  store.on("set", (state, event) => ({ counter: event }));
+  store.on("@init", () => ({ userInfo: null }));
+  store.on("setUserInfo", (state, userInfo) => ({ ...state, userInfo }));
 };
 
 export const store = createStoreon<State, Events>([

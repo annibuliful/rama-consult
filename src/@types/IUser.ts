@@ -18,4 +18,4 @@ export enum IUserRole {
   DOCTOR = "doctor",
   STAFF = "staff",
 }
-export type IUserInfo = Omit<IUser, "email" | "password">;
+export type IUserInfo = Omit<IUser, "password">;
