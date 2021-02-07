@@ -1,14 +1,15 @@
 import { Box, SimpleGrid, Image } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFormType } from "../@types/IForm";
 import { IUserInfo, IUserStatus } from "../@types/IUser";
 import { Login } from "../components/Form/Login";
 import { Register } from "../components/Form/Register";
+import { auth } from "../firebase";
 
 export const Home = () => {
   const router = useHistory();
-  const [type, setType] = useState<IFormType>("register");
+  const [type, setType] = useState<IFormType>("login");
 
   const onChangeType = (type: IFormType) => {
     setType(type);
@@ -23,6 +24,12 @@ export const Home = () => {
       router.push("/user/dashboard");
     }
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) return;
+    });
+  }, []);
 
   return (
     <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }}>
