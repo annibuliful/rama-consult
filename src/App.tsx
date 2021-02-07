@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { UserPendingPage } from "./pages/Pending";
-import { UserPage } from "./pages/User";
 import { UserDashboard } from "./pages/User/dashboard";
 
 const App: FunctionComponent = () => {
@@ -14,9 +13,6 @@ const App: FunctionComponent = () => {
         </Route>
         <Route exact path="/pending">
           <UserPendingPage />
-        </Route>
-        <Route exact path="/user">
-          <UserPage />
         </Route>
         <Route exact path="/user/dashboard">
           <UserDashboard />

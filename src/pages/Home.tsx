@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Image, Spinner } from "@chakra-ui/react";
+import { Box, SimpleGrid, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFormType } from "../@types/IForm";
