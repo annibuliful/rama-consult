@@ -24,6 +24,9 @@ export const theme = extendTheme({
       500: "#f44336",
       600: "#e53935",
     },
+    pending: {
+      400: "#F7CB73",
+    },
     complete: {
       600: "#43a047",
       700: "#388e3c",

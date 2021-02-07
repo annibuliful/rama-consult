@@ -1,15 +1,24 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
+import { UserPendingPage } from "./pages/Pending";
+import { UserPage } from "./pages/User";
 
-export default function App() {
+const App: FunctionComponent = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
+        </Route>
+        <Route exact path="/pending">
+          <UserPendingPage />
+        </Route>
+        <Route exact path="/user">
+          <UserPage />
         </Route>
       </Switch>
     </Router>
   );
-}
+};
+export default App;

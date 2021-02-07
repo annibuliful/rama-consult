@@ -1,14 +1,27 @@
 import { Box, SimpleGrid, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { IFormType } from "../@types/IForm";
+import { IUserInfo, IUserStatus } from "../@types/IUser";
 import { Login } from "../components/Form/Login";
 import { Register } from "../components/Form/Register";
 
 export const Home = () => {
+  const router = useHistory();
   const [type, setType] = useState<IFormType>("register");
 
   const onChangeType = (type: IFormType) => {
     setType(type);
+  };
+
+  const onLoginComplete = ({ userStatus }: IUserInfo) => {
+    if (userStatus === IUserStatus.PENDING) {
+      router.push("/pending");
+      return;
+    }
+    if (userStatus === IUserStatus.ACCEPT) {
+      router.push("/user/dashboard");
+    }
   };
 
   return (
@@ -41,7 +54,7 @@ export const Home = () => {
           </Box>
         </SimpleGrid>
         <Box>
-          {type === "login" && <Login onCompleteLogin={() => {}} />}
+          {type === "login" && <Login onLoginComplete={onLoginComplete} />}
           {type === "register" && (
             <Register
               onCompleteRegister={(type) => {

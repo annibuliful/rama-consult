@@ -7,9 +7,9 @@ import { FormInput } from "../Input/FormInput";
 
 type ILogin = Pick<IUser, "email" | "password">;
 interface ILoginProps {
-  onCompleteLogin: (data: IUserInfo) => void;
+  onLoginComplete: (data: IUserInfo) => void;
 }
-export const Login: FunctionComponent<ILoginProps> = ({ onCompleteLogin }) => {
+export const Login: FunctionComponent<ILoginProps> = ({ onLoginComplete }) => {
   const { register, errors, handleSubmit } = useForm();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,8 +31,7 @@ export const Login: FunctionComponent<ILoginProps> = ({ onCompleteLogin }) => {
     const info = (
       await firestore.collection("users").doc(credential.user?.uid).get()
     ).data() as IUser;
-
-    onCompleteLogin(info);
+    onLoginComplete(info);
   };
 
   return (
