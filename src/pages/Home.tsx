@@ -7,23 +7,23 @@ import { Register } from "../components/Form/Register";
 export const Home = () => {
   const [type, setType] = useState<IFormType>("register");
 
-  const onChangeType = (tupe: IFormType) => {
+  const onChangeType = (type: IFormType) => {
     setType(type);
   };
 
   return (
-    <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} alignItems="center">
+    <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }}>
       <Box>
         <Image src="/images/cover.jpg" />
       </Box>
-      <Box>
-        <SimpleGrid columns={2}>
+      <Box my={16}>
+        <SimpleGrid columns={2} mx={4}>
           <Box
             onClick={() => onChangeType("login")}
             cursor="pointer"
-            border={"2px"}
+            borderBottom={"2px"}
             p={4}
-            borderColor="ActiveBorder"
+            borderColor={type === "login" ? "brand.400" : "inherit"}
             textAlign="center"
           >
             Login
@@ -32,17 +32,23 @@ export const Home = () => {
           <Box
             onClick={() => onChangeType("register")}
             cursor="pointer"
-            border={"2px"}
+            borderBottom={"2px"}
             p={4}
-            borderColor="ActiveBorder"
+            borderColor={type === "register" ? "brand.400" : "inherit"}
             textAlign="center"
           >
             Register
           </Box>
         </SimpleGrid>
         <Box>
-          {type === "login" && <Login />}
-          {type === "register" && <Register />}
+          {type === "login" && <Login onCompleteLogin={() => {}} />}
+          {type === "register" && (
+            <Register
+              onCompleteRegister={(type) => {
+                onChangeType(type as IFormType);
+              }}
+            />
+          )}
         </Box>
       </Box>
     </SimpleGrid>

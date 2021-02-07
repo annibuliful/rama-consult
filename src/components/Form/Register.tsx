@@ -1,19 +1,22 @@
 import { Button } from "@chakra-ui/react";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import { IUser, IUserRole, IUserStatus } from "../../@types/IUser";
 import { FormInput } from "../Input/FormInput";
 import { auth, firestore } from "../../firebase";
 
-export const Register = () => {
+interface IRegisterProps {
+  onCompleteRegister: (type: string) => void;
+}
+export const Register: FunctionComponent<IRegisterProps> = ({
+  onCompleteRegister,
+}) => {
   // state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hospitalName, setHospitalName] = useState("");
   const [fullname, setFullname] = useState("");
-  const router = useHistory();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   // event
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +50,7 @@ export const Register = () => {
         role: IUserRole.DOCTOR,
         userStatus: IUserStatus.PENDING,
       });
-    router.push("/login");
+    onCompleteRegister("login");
   };
 
   return (
@@ -59,6 +62,7 @@ export const Register = () => {
         formRef={register({ required: true })}
         name="email"
         isRequired={true}
+        isInvalid={errors["email"]}
       />
       <FormInput
         value={password}
@@ -68,6 +72,7 @@ export const Register = () => {
         formRef={register({ required: true, minLength: 8 })}
         isPassword={true}
         isRequired={true}
+        isInvalid={errors["password"]}
       />
       <FormInput
         value={fullname}
@@ -76,6 +81,7 @@ export const Register = () => {
         formRef={register({ required: true })}
         name="fullname"
         isRequired={true}
+        isInvalid={errors["fullname"]}
       />
       <FormInput
         value={hospitalName}
