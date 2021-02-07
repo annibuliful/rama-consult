@@ -1,8 +1,8 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { IUser } from "../../@types/IUser";
+import { IUser, IUserRole, IUserStatus } from "../../@types/IUser";
 import { FormInput } from "../Input/FormInput";
 import { auth, firestore } from "../../firebase";
 
@@ -44,55 +44,49 @@ export const Register = () => {
         hospitalName: data.hospitalName,
         doctorIdNumber: data.doctorIdNumber ?? "",
         fullName: data.fullname,
+        role: IUserRole.DOCTOR,
+        userStatus: IUserStatus.PENDING,
       });
     router.push("/login");
   };
 
   return (
-    <Box>
-      <form onSubmit={handleSubmit(onRegister)}>
-        <FormInput
-          value={email}
-          label="Email"
-          onChange={onChangeEmail}
-          formRef={register({ required: true })}
-          name="email"
-          isRequired={true}
-        />
-        <FormInput
-          value={password}
-          label="Password"
-          onChange={onChangePassword}
-          name="password"
-          formRef={register({ required: true, minLength: 8 })}
-          isPassword={true}
-          isRequired={true}
-        />
-        <FormInput
-          value={fullname}
-          label="Fullname"
-          onChange={onChangeFullname}
-          formRef={register({ required: true })}
-          name="fullname"
-          isRequired={true}
-        />
-        <FormInput
-          value={hospitalName}
-          label="Hosipital Name"
-          onChange={onChangeHospitalName}
-          formRef={register}
-          name="hospitalName"
-        />
-        <Button
-          type="submit"
-          variant="primary"
-          my={8}
-          display="block"
-          mx="auto"
-        >
-          Register
-        </Button>
-      </form>
-    </Box>
+    <form onSubmit={handleSubmit(onRegister)}>
+      <FormInput
+        value={email}
+        label="Email"
+        onChange={onChangeEmail}
+        formRef={register({ required: true })}
+        name="email"
+        isRequired={true}
+      />
+      <FormInput
+        value={password}
+        label="Password"
+        onChange={onChangePassword}
+        name="password"
+        formRef={register({ required: true, minLength: 8 })}
+        isPassword={true}
+        isRequired={true}
+      />
+      <FormInput
+        value={fullname}
+        label="Fullname"
+        onChange={onChangeFullname}
+        formRef={register({ required: true })}
+        name="fullname"
+        isRequired={true}
+      />
+      <FormInput
+        value={hospitalName}
+        label="Hosipital Name"
+        onChange={onChangeHospitalName}
+        formRef={register}
+        name="hospitalName"
+      />
+      <Button type="submit" variant="primary" my={8} display="block" mx="auto">
+        Register
+      </Button>
+    </form>
   );
 };
