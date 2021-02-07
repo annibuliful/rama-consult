@@ -9,13 +9,13 @@ export interface IUser {
 }
 
 export enum IUserStatus {
-  ACCEPT = "accept",
-  REJECT = "reject",
-  PENDING = "pending",
+  ACCEPT = 'accept',
+  REJECT = 'reject',
+  PENDING = 'pending',
 }
 export enum IUserRole {
-  ADMIN = "admin",
-  DOCTOR = "doctor",
-  STAFF = "staff",
+  ADMIN = 'admin',
+  DOCTOR = 'doctor',
+  STAFF = 'staff',
 }
-export type IUserInfo = Omit<IUser, "password">;
+export type IUserInfo = Omit<IUser, 'password'>;

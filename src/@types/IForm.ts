@@ -1,1 +1,1 @@
-export type IFormType = "login" | "register";
+export type IFormType = 'login' | 'register';

@@ -1,18 +1,18 @@
-import { Button } from "@chakra-ui/react";
-import React, { ChangeEvent, FunctionComponent, useState } from "react";
-import { useForm } from "react-hook-form";
-import { IUser, IUserInfo } from "../../@types/IUser";
-import { auth, firestore } from "../../firebase";
-import { FormInput } from "../Input/FormInput";
+import { Button } from '@chakra-ui/react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { IUser, IUserInfo } from '../../@types/IUser';
+import { auth, firestore } from '../../firebase';
+import { FormInput } from '../Input/FormInput';
 
-type ILogin = Pick<IUser, "email" | "password">;
+type ILogin = Pick<IUser, 'email' | 'password'>;
 interface ILoginProps {
   onLoginComplete: (data: IUserInfo) => void;
 }
 export const Login: FunctionComponent<ILoginProps> = ({ onLoginComplete }) => {
   const { register, errors, handleSubmit } = useForm();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -25,11 +25,11 @@ export const Login: FunctionComponent<ILoginProps> = ({ onLoginComplete }) => {
   const onLogin = async (data: ILogin) => {
     const credential = await auth.signInWithEmailAndPassword(
       data.email,
-      data.password
+      data.password,
     );
 
     const info = (
-      await firestore.collection("users").doc(credential.user?.uid).get()
+      await firestore.collection('users').doc(credential.user?.uid).get()
     ).data() as IUser;
     onLoginComplete(info);
   };
@@ -42,8 +42,8 @@ export const Login: FunctionComponent<ILoginProps> = ({ onLoginComplete }) => {
         onChange={onChangeEmail}
         formRef={register({ required: true })}
         name="email"
-        isRequired={true}
-        isInvalid={errors["email"]}
+        isRequired
+        isInvalid={errors.email}
       />
       <FormInput
         value={password}
@@ -51,9 +51,9 @@ export const Login: FunctionComponent<ILoginProps> = ({ onLoginComplete }) => {
         onChange={onChangePassword}
         name="password"
         formRef={register({ required: true, minLength: 8 })}
-        isPassword={true}
-        isRequired={true}
-        isInvalid={errors["password"]}
+        isPassword
+        isRequired
+        isInvalid={errors.password}
       />
       <Button type="submit" variant="primary" my={8} display="block" mx="auto">
         Login

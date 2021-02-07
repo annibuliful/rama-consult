@@ -1,5 +1,5 @@
-import { Box, NumberInput, Text } from "@chakra-ui/react";
-import React, { FunctionComponent } from "react";
+import { Box, NumberInput, Text } from '@chakra-ui/react';
+import React, { FunctionComponent } from 'react';
 
 export interface IFormNumberInputProps {
   value: number;

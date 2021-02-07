@@ -1,9 +1,9 @@
-import { Button } from "@chakra-ui/react";
-import React, { ChangeEvent, FunctionComponent, useState } from "react";
-import { useForm } from "react-hook-form";
-import { IUser, IUserRole, IUserStatus } from "../../@types/IUser";
-import { FormInput } from "../Input/FormInput";
-import { auth, firestore } from "../../firebase";
+import { Button } from '@chakra-ui/react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { IUser, IUserRole, IUserStatus } from '../../@types/IUser';
+import { FormInput } from '../Input/FormInput';
+import { auth, firestore } from '../../firebase';
 
 interface IRegisterProps {
   onCompleteRegister: (type: string) => void;
@@ -12,10 +12,10 @@ export const Register: FunctionComponent<IRegisterProps> = ({
   onCompleteRegister,
 }) => {
   // state
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [hospitalName, setHospitalName] = useState("");
-  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hospitalName, setHospitalName] = useState('');
+  const [fullname, setFullname] = useState('');
   const { register, handleSubmit, errors } = useForm();
 
   // event
@@ -37,20 +37,20 @@ export const Register: FunctionComponent<IRegisterProps> = ({
   const onRegister = async (data: IUser) => {
     const credential = await auth.createUserWithEmailAndPassword(
       data.email,
-      data.password
+      data.password,
     );
 
     await firestore
-      .collection("users")
+      .collection('users')
       .doc(credential.user?.uid)
       .set({
         hospitalName: data.hospitalName,
-        doctorIdNumber: data.doctorIdNumber ?? "",
+        doctorIdNumber: data.doctorIdNumber ?? '',
         fullName: data.fullname,
         role: IUserRole.DOCTOR,
         userStatus: IUserStatus.PENDING,
       });
-    onCompleteRegister("login");
+    onCompleteRegister('login');
   };
 
   return (
@@ -61,8 +61,8 @@ export const Register: FunctionComponent<IRegisterProps> = ({
         onChange={onChangeEmail}
         formRef={register({ required: true })}
         name="email"
-        isRequired={true}
-        isInvalid={errors["email"]}
+        isRequired
+        isInvalid={errors.email}
       />
       <FormInput
         value={password}
@@ -70,9 +70,9 @@ export const Register: FunctionComponent<IRegisterProps> = ({
         onChange={onChangePassword}
         name="password"
         formRef={register({ required: true, minLength: 8 })}
-        isPassword={true}
-        isRequired={true}
-        isInvalid={errors["password"]}
+        isPassword
+        isRequired
+        isInvalid={errors.password}
       />
       <FormInput
         value={fullname}
@@ -80,8 +80,8 @@ export const Register: FunctionComponent<IRegisterProps> = ({
         onChange={onChangeFullname}
         formRef={register({ required: true })}
         name="fullname"
-        isRequired={true}
-        isInvalid={errors["fullname"]}
+        isRequired
+        isInvalid={errors.fullname}
       />
       <FormInput
         value={hospitalName}

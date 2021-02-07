@@ -34,14 +34,20 @@ export const Home = () => {
   useEffect(() => {
     setAuthLoading(true);
     auth.onAuthStateChanged(async (credential) => {
-      if (!credential) return;
+      if (!credential) {
+        setAuthLoading(false);
+        return;
+      }
 
       const userResult = await firestore
         .collection("users")
         .doc(credential?.uid)
         .get();
 
-      if (!userResult.exists) return;
+      if (!userResult.exists) {
+        setAuthLoading(false);
+        return;
+      }
 
       const userInfo = userResult.data() as Omit<IUserInfo, "email">;
       const userEmail = credential.email as string;

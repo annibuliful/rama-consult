@@ -1,6 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
-import React, { CSSProperties, FunctionComponent } from "react";
-import { LoadingSpinner } from "./Spinner";
+import { Box, Text } from '@chakra-ui/react';
+import React, { CSSProperties, FunctionComponent } from 'react';
+import { LoadingSpinner } from './Spinner';
 
 interface ITransitionLoading {
   label?: string;
@@ -8,16 +8,16 @@ interface ITransitionLoading {
   isCenterPage?: boolean;
 }
 export const TransitionLoading: FunctionComponent<ITransitionLoading> = ({
-  label = "Rama Consult",
+  label = 'Rama Consult',
   fontsize,
   isCenterPage = true,
 }) => {
   const centerPage = isCenterPage
     ? {
-        position: "absolute" as CSSProperties["position"],
-        top: "45vh",
-        left: "45vw",
-      }
+      position: 'absolute' as CSSProperties['position'],
+      top: '45vh',
+      left: '45vw',
+    }
     : undefined;
 
   return (

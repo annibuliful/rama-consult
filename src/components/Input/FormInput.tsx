@@ -1,14 +1,16 @@
-import { Box, Input, SpacerProps, Text } from "@chakra-ui/react";
-import React, { ChangeEvent, FunctionComponent } from "react";
+import {
+  Box, Input, SpacerProps, Text,
+} from '@chakra-ui/react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 
 export interface IFormInputProps {
   value: string;
   label: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  mt?: SpacerProps["mt"];
-  mb?: SpacerProps["mt"];
-  ml?: SpacerProps["ml"];
-  mr?: SpacerProps["mr"];
+  mt?: SpacerProps['mt'];
+  mb?: SpacerProps['mt'];
+  ml?: SpacerProps['ml'];
+  mr?: SpacerProps['mr'];
   formRef?: any;
   name: string;
   isPassword?: boolean;
@@ -33,7 +35,7 @@ export const FormInput: FunctionComponent<IFormInputProps> = ({
   <Box mt={mt ?? 6} mb={mb} ml={ml ?? 4} mr={mr ?? 4}>
     <Text color="gray.600" fontSize={[14, 16, 18]}>
       {label}
-      {isRequired && <span style={{ color: "red", marginLeft: "5px" }}>*</span>}
+      {isRequired && <span style={{ color: 'red', marginLeft: '5px' }}>*</span>}
     </Text>
     <Input
       value={value}
@@ -41,7 +43,7 @@ export const FormInput: FunctionComponent<IFormInputProps> = ({
       size="md"
       placeholder={label}
       name={name}
-      type={isPassword ? "password" : "text"}
+      type={isPassword ? 'password' : 'text'}
       isInvalid={isInvalid}
       ref={formRef}
     />
