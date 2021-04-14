@@ -1,26 +1,21 @@
-import { createStoreon, StoreonModule } from 'storeon';
-import { storeonDevtools } from 'storeon/devtools';
-import { useStoreon } from 'storeon/react';
-import { IUserInfo } from '../@types/IUser';
+import { createStoreon } from "storeon";
+import { storeonDevtools } from "storeon/devtools";
+import { useStoreon } from "storeon/react";
+import { consultationModule } from "./consultation";
+import {
+  State as ConsultationState,
+  Event as ConsultationEvent,
+} from "./consultation";
+import { State as UserInfoState, Event as UserInfoEvent } from "./user-info";
+import { userInfoModule } from "./user-info";
 
-// State structure
-interface State {
-  userInfo: IUserInfo | null;
-}
+type State = ConsultationState & UserInfoState;
+type Event = ConsultationEvent & UserInfoEvent;
 
-// Events declaration: map of event names to type of event data
-interface Events {
-  setUserInfo: IUserInfo;
-}
-
-const counterModule: StoreonModule<State, Events> = (store) => {
-  store.on('@init', () => ({ userInfo: null }));
-  store.on('setUserInfo', (state, userInfo) => ({ ...state, userInfo }));
-};
-
-export const store = createStoreon<State, Events>([
-  counterModule,
-  process.env.NODE_ENV !== 'production' && storeonDevtools,
+export const store = createStoreon<State, Event>([
+  userInfoModule,
+  consultationModule,
+  process.env.NODE_ENV !== "production" && storeonDevtools,
 ]);
 
-export const useStore = (keys: keyof State) => useStoreon<State, Events>(keys);
+export const useStore = (keys: keyof State) => useStoreon<State, Event>(keys);

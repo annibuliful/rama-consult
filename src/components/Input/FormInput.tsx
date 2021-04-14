@@ -5,6 +5,7 @@ export interface IFormInputProps {
   value: string;
   label: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
   mt?: SpacerProps["mt"];
   mb?: SpacerProps["mt"];
   ml?: SpacerProps["ml"];
@@ -19,8 +20,8 @@ export interface IFormInputProps {
 export const FormInput: FunctionComponent<IFormInputProps> = ({
   label,
   value,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = () => {},
+  onChange,
+  onBlur,
   formRef,
   name,
   isPassword = false,
@@ -37,6 +38,7 @@ export const FormInput: FunctionComponent<IFormInputProps> = ({
       {isRequired && <span style={{ color: "red", marginLeft: "5px" }}>*</span>}
     </Text>
     <Input
+      onBlur={onBlur}
       value={value}
       onChange={onChange}
       size="md"
