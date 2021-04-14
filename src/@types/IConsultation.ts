@@ -3,5 +3,14 @@ export interface IBasicInfoData {
   institutionName: string;
   telephone: string;
   email: string;
-  todayDate: string;
+  todayDate: Date;
+}
+export enum GENDER {
+  MALE = "male",
+  FEMAIL = "female",
+}
+export interface IPatientInfoData {
+  name: string;
+  hnNumber: string;
+  gender: GENDER;
 }

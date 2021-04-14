@@ -3,20 +3,23 @@ import { IBasicInfoData } from "../@types/IConsultation";
 
 const initialValue: IBasicInfoData = {
   physicianName: "",
-  institutionName: "",
+  institutionName: "222@gmail.com",
   telephone: "",
   email: "",
-  todayDate: "",
+  todayDate: new Date(),
 };
 
 export interface State {
-  basicInfo: IBasicInfoData | null;
+  basicInfo: IBasicInfoData;
 }
 
 export interface Event {
-  saveBasicInfo: IBasicInfoData;
+  "consultation/saveBasicInfo": IBasicInfoData;
 }
 export const consultationModule: StoreonModule<State, Event> = (store) => {
   store.on("@init", () => ({ basicInfo: initialValue }));
-  store.on("saveBasicInfo", (state, basicData) => ({ ...state, ...basicData }));
+  store.on("consultation/saveBasicInfo", (state, basicInfo) => ({
+    ...state,
+    basicInfo,
+  }));
 };

@@ -1,26 +1,31 @@
 import { Box, Text } from "@chakra-ui/layout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IBasicInfoData } from "../../../@types/IConsultation";
 import { useStore } from "../../../store";
 import { BasicInfoForm } from "./Basic-info";
 
 export const ConultationForm = () => {
-  const { dispatch, basicInfo } = useStore("basicInfo");
-  const mockData: IBasicInfoData = {
-    institutionName: "insti-name",
-    physicianName: "phy-name",
-    telephone: "09228912313",
-    email: "lagman@gmail.com",
-    todayDate: new Date().toDateString(),
-  };
+  const { basicInfo } = useStore("basicInfo");
+  const [loading, setLoading] = useState(true);
+  const [mockData, setMockData] = useState<IBasicInfoData>({
+    institutionName: "",
+    physicianName: "",
+    telephone: "",
+    email: "",
+    todayDate: new Date(),
+  });
 
-  const onSave = (data: IBasicInfoData) => {
-    dispatch("saveBasicInfo", data);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setMockData(basicInfo);
+      setLoading(false);
+    }, 2000);
+  }, [basicInfo]);
+
   return (
     <Box>
       <Text>Consultation Form</Text>
-      <BasicInfoForm {...mockData} onSave={onSave} />
+      {!loading && <BasicInfoForm {...mockData} />}
     </Box>
   );
 };

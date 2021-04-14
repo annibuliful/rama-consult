@@ -33,7 +33,12 @@ export const DatePickerInput: FunctionComponent<IDatePickerProps> = ({
           <span style={{ color: "red", marginLeft: "5px" }}>*</span>
         )}
       </Text>
-      <DatePicker value={value} onChange={onChange} placeholderText={label} />
+      <DatePicker
+        value={value}
+        onChange={onChange}
+        placeholderText={label}
+        dateFormat="dd/MM/yyyy"
+      />
     </Box>
   );
 };

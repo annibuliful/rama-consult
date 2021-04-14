@@ -1,20 +1,24 @@
 import { Box, Text } from "@chakra-ui/layout";
-import React, { ChangeEvent, FunctionComponent, useReducer } from "react";
+import { omit } from "lodash";
+import React, {
+  ChangeEvent,
+  FunctionComponent,
+  useEffect,
+  useReducer,
+} from "react";
 import { IBasicInfoData } from "../../../../@types/IConsultation";
 import { DatePickerInput } from "../../../../components/Input/DatePicker";
 import { FormInput } from "../../../../components/Input/FormInput";
 import { useStore } from "../../../../store";
 
-export interface IBasicInfo extends IBasicInfoData {
-  onSave: (data: IBasicInfoData) => void;
-}
+export type IBasicInfo = IBasicInfoData;
 
 const initialValues: IBasicInfoData = {
   physicianName: "",
   institutionName: "",
   telephone: "",
   email: "",
-  todayDate: "",
+  todayDate: new Date(),
 };
 
 type Action =
@@ -35,31 +39,27 @@ const reducer = (state: IBasicInfoData, action: Action) => ({
   [action.type]: action.data,
 });
 
-export const BasicInfoForm: FunctionComponent<IBasicInfo> = () => {
-  const [basicData, dispatch] = useReducer(reducer, initialValues);
+export const BasicInfoForm: FunctionComponent<IBasicInfo> = (props) => {
+  const defaultValues: IBasicInfo = omit(props, "children");
+  const [basicData, dispatch] = useReducer(reducer, defaultValues);
   const { dispatch: storeDispatch } = useStore("basicInfo");
-  const onChangeInstitutionName = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "institutionName", data: e.target.value });
-    // storeDispatch("saveBasicInfo", {
-    //   ...basicData,
-    //   institutionName: e.target.value,
-    // });
+
+  const onSaveData = (key: keyof IBasicInfoData, data: string | Date) => {
+    const newData = { ...basicData, [key]: data };
+    storeDispatch("consultation/saveBasicInfo", newData);
   };
 
-  const onChangePhysicianName = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "physicianName", data: e.target.value });
-  };
-
-  const onChangeTelephone = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "telephone", data: e.target.value });
-  };
-
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "email", data: e.target.value });
+  const onChangeInput = (
+    key: keyof IBasicInfoData,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const data = e.target.value;
+    dispatch({ type: key, data });
   };
 
   const onChangeTodayDate = (date: Date) => {
-    dispatch({ type: "todayDate", data: date.toDateString() });
+    dispatch({ type: "todayDate", data: date.toString() });
+    onSaveData("todayDate", date);
   };
 
   return (
@@ -69,34 +69,38 @@ export const BasicInfoForm: FunctionComponent<IBasicInfo> = () => {
         label="Institution name"
         value={basicData.institutionName}
         name="institution-name"
-        onChange={onChangeInstitutionName}
+        onChange={(e) => onChangeInput("institutionName", e)}
+        onBlur={(e) => onSaveData("institutionName", e.target.value)}
         isRequired={true}
       />
       <FormInput
         label="Physician name"
         value={basicData.physicianName}
         name="physician-name"
-        onChange={onChangePhysicianName}
+        onChange={(e) => onChangeInput("physicianName", e)}
+        onBlur={(e) => onSaveData("physicianName", e.target.value)}
         isRequired={true}
       />
       <FormInput
         label="Telephone"
-        value={basicData.institutionName}
+        value={basicData.telephone}
         name="telephone"
-        onChange={onChangeTelephone}
+        onChange={(e) => onChangeInput("telephone", e)}
+        onBlur={(e) => onSaveData("telephone", e.target.value)}
         isRequired={true}
       />
       <FormInput
         label="Email"
         value={basicData.email}
         name="email"
-        onChange={onChangeEmail}
+        onChange={(e) => onChangeInput("email", e)}
+        onBlur={(e) => onSaveData("email", e.target.value)}
         isRequired={true}
       />
       <DatePickerInput
         label="Today's Date"
         name="today-date"
-        value={basicData.todayDate}
+        value={basicData.todayDate.toString()}
         onChange={onChangeTodayDate}
       />
     </Box>
