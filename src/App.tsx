@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { UserPendingPage } from './pages/Pending';
-import { UserDashboard } from './pages/User/dashboard';
+import React, { FunctionComponent } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { UserPendingPage } from "./pages/Pending";
+import { UserDashboard } from "./pages/User/Dashboard";
 
 const App: FunctionComponent = () => (
   <Router>
